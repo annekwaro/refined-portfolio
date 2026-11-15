@@ -262,6 +262,27 @@ section.s { padding-block: clamp(4.5rem, 12vh, 8rem); }
 .index .tags span { font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.65rem; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
 @media (min-width: 760px) { .index { grid-template-columns: 1.35fr 1fr; align-items: end; } }
 
+.index .shot.contain img { object-fit: contain; padding: 4% 3% 0; }
+@media (min-width: 1000px) { .index { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; align-items: start !important; } .index .row { flex-direction: column; align-items: flex-start; } .index .name { font-size: clamp(1.6rem, 2.4vw, 2.3rem); } }
+.index li.wide { grid-column: 1 / -1; }
+.index li.wide .shot { aspect-ratio: 16 / 9; }
+.index li.wide .shot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transition: transform 800ms cubic-bezier(.2,.8,.2,1); }
+.index li.wide button:hover .shot video { transform: scale(1.03); }
+.playhint { position: absolute; z-index: 2; left: 16px; bottom: 16px; padding: 0.4rem 0.8rem; border-radius: 999px; background: rgb(255 255 255 / 90%); color: var(--ink); font-size: 0.8rem; font-weight: 700; transition: opacity 300ms ease; }
+.index li.wide button:hover .playhint { opacity: 0; }
+@media (hover: none) { .playhint { display: none; } }
+@media (min-width: 760px) { .index li.wide .shot { aspect-ratio: 21 / 9; } }
+.dcol { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.5rem, 1.2vw, 1rem); padding: 3.4rem clamp(0.8rem, 2vw, 1.6rem) clamp(0.8rem, 2vw, 1.6rem); }
+.dtile { position: relative; min-width: 0; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 20px 40px -22px rgb(0 0 0 / 55%); transform: rotate(calc((var(--k) - 1.5) * 1.4deg)); transition: transform 500ms cubic-bezier(.3,1.4,.5,1); transition-delay: calc(var(--k) * 50ms); }
+.dtile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 800ms cubic-bezier(.2,.8,.2,1); }
+.index button:hover .dtile { transform: rotate(0deg) translateY(-6px); }
+.index button:hover .dtile img { transform: scale(1.06); }
+.dcap { position: absolute; left: 8px; right: 8px; bottom: 8px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 0.45rem; padding: 0.45rem 0.6rem 0.45rem 0.45rem; border-radius: 12px; background: rgb(255 255 255 / 94%); color: var(--ink); box-shadow: 0 8px 20px -10px rgb(0 0 0 / 45%); }
+.dcap b { grid-row: span 2; width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: #e34627; color: #fff; font: 600 0.72rem/1 var(--mono); }
+.dcap span { font-weight: 800; font-size: 0.86rem; line-height: 1.1; }
+.dcap small { font: 500 0.66rem/1.2 var(--mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 759px) { .index li.wide .shot { aspect-ratio: 4 / 3; } }
+
 /* ---------- project panel */
 .panel { position: fixed; inset: 0; z-index: 70; display: grid; grid-template-columns: 1fr; pointer-events: none; }
 .panel .scrim { position: absolute; inset: 0; background: rgb(15 17 21 / 45%); opacity: 0; transition: opacity 500ms ease; }
@@ -640,7 +661,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="head reveal">
         <span class="kicker"><span class="d-only"><span class="en">Seen as a designer</span><span class="fr">Vu en designer</span></span><span class="c-only"><span class="en">Seen as a developer</span><span class="fr">Vu en développeuse</span></span></span>
         <h2 id="work-h"><span class="en">Research to <em>release</em>.</span><span class="fr">De la recherche à <em>la mise en ligne</em>.</span></h2>
-        <p><span class="en">A UX case study and a mobile app. Click one to see both the design side and the code side.</span><span class="fr">Une étude de cas UX et une application mobile. Cliquez pour voir le côté design et le côté code.</span></p>
+        <p><span class="en">Two UX case studies and a mobile app. Click one to see both the design side and the code side.</span><span class="fr">Deux études de cas UX et une application mobile. Cliquez pour voir le côté design et le côté code.</span></p>
       </div>
       <ol class="index" id="index"></ol>
     </div>
@@ -848,19 +869,31 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       cTags: { en: ['Ionic', 'Firebase'], fr: ['Ionic', 'Firebase'] },
       design: { en: ['Start without an account; sign up only to chat', 'A gentle tone and calm colours', 'French and English, switched in one tap'], fr: ['Commencer sans compte, s’inscrire seulement pour discuter', 'Un ton doux et des couleurs calmes', 'Français et anglais, d’un geste'] },
       code: { en: ['Ionic and Angular', 'Firebase for accounts and real-time chat', 'Mood diary and guided sessions'], fr: ['Ionic et Angular', 'Firebase pour les comptes et la discussion en temps réel', 'Journal d’humeur et séances guidées'] },
-      links: [{ en: 'Code', fr: 'Code', href: 'https://github.com/annekwaro/Chat' }] }
+      links: [{ en: 'Code', fr: 'Code', href: 'https://github.com/annekwaro/Chat' }] },
+    { name: 'Ko-Maisha', full: true, grid: true, first: true, contain: true, label: { en: 'Master’s thesis', fr: 'Mémoire de master' }, bg: '#10aecb', img: 'images/ko-final.webp', alt: { en: 'Final Ko-Maisha screens: prevention, specialists and symptoms', fr: 'Écrans finaux de Ko-Maisha : prévention, spécialistes et symptômes' },
+      steps: { en: ['Empathise', 'Define', 'Ideate', 'Prototype'], fr: ['Empathie', 'Définition', 'Idéation', 'Prototype'] },
+      video: 'images/ko-hero.mp4', poster: 'images/ko-hero-poster.webp',
+      tiles: [{ img: 'images/ko-painpoints.webp', en: 'Pain points', fr: 'Irritants' }, { img: 'images/ko-journey.webp', en: 'Journey map', fr: 'Parcours' }, { img: 'images/ko-moodboard.webp', en: 'Moodboard', fr: 'Planche de tendances' }, { img: 'images/ko-final.webp', en: 'Final design', fr: 'Design final' }],
+      kind: { en: 'Master’s thesis · SUPSI · 2020', fr: 'Mémoire de master · SUPSI · 2020' },
+      lede: { en: 'Trusted COVID-19 information and care for Kenya, designed from 25 phone interviews during the first lockdown. Rated one of the best research projects at SUPSI.', fr: 'Une information COVID-19 fiable et l’accès aux soins au Kenya, conçus à partir de 25 entretiens téléphoniques pendant le premier confinement. Classé parmi les meilleurs projets de recherche de la SUPSI.' },
+      dTags: { en: ['Interviews', 'Personas', 'Journeys', 'Prototype'], fr: ['Entretiens', 'Personas', 'Parcours', 'Prototype'] },
+      cTags: { en: ['Angular rebuild, in progress'], fr: ['Refonte Angular, en cours'] },
+      design: { en: ['25 phone interviews with the public, doctors and policy makers', 'Pain points sorted by urgency and by what people can control', 'Personas and journey maps, such as Mama Suzana, a grandmother and farmer', 'Greyscale wireframes, visual iterations, then an interactive prototype'], fr: ['25 entretiens téléphoniques avec le grand public, des médecins et des décideurs', 'Des irritants classés par urgence et par ce que chacun peut maîtriser', 'Des personas et des parcours, comme Mama Suzana, grand-mère et agricultrice', 'Wireframes en niveaux de gris, itérations visuelles, puis un prototype interactif'] },
+      code: { en: ['Ko-Maisha 2.0: rebuilding it as an Angular web app', 'Mobile-first and installable', 'Accessibility review and new usability tests'], fr: ['Ko-Maisha 2.0 : refonte en application web Angular', 'Pensée mobile d’abord et installable', 'Revue d’accessibilité et nouveaux tests utilisateurs'] },
+      links: [{ en: 'Read the case study', fr: 'Lire l’étude de cas', href: 'https://ko-maisha.vercel.app/' }] }
   ];
 
   // ---------- project index
   const index = $('#index');
   function renderIndex() {
     const l = L(), code = root.dataset.mode === 'code';
-    index.replaceChildren(...projects.map((p, i) => [p, i]).filter(([p]) => p.grid).map(([p, i], n) => {
+    index.replaceChildren(...projects.map((p, i) => [p, i]).filter(([p]) => p.grid).sort((a, b) => (b[0].first ? 1 : 0) - (a[0].first ? 1 : 0)).map(([p, i], n) => {
       const li = document.createElement('li');
       const b = document.createElement('button');
       b.type = 'button'; b.dataset.i = i;
       b.innerHTML = `<span class="shot${p.full ? ' full' : ''}" style="--pbg:${p.bg}"><span class="n">${p.label[l]}</span><img alt="" loading="lazy"><span class="open" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span><span class="row"><span class="name"></span><span class="tags"></span></span>`;
       b.querySelector('img').src = p.img; b.querySelector('img').alt = p.alt[l];
+      if (p.contain) b.querySelector('.shot').classList.add('contain');
       b.querySelector('.name').textContent = p.name;
       const tags = b.querySelector('.tags');
       (code ? p.cTags[l] : p.dTags[l]).forEach((t) => tags.append(Object.assign(document.createElement('span'), { textContent: t })));
